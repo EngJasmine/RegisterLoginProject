@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "272052437780",
+    "project_id": "signinsignup-dfd74",
+    "storage_bucket": "signinsignup-dfd74.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:272052437780:android:9dfc4b8f6ffe5b7e7bf801",
+        "android_client_info": {
+          "package_name": "com.example.signinsignup"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLHczfGj5P6Yv0mYkzRua6lvrDIJH_Cns"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
