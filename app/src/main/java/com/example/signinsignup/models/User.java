@@ -5,12 +5,12 @@ public class User {
     public User(){
     }
 
-    public User(String fullName, String email, String id, String phone, String password) {
+    public User(String fullName, String email, String id, String phone) {
         this.fullName = fullName;
         this.email = email;
         this.id = id;
         this.phone = phone;
-        this.password = password;
+
     }
 
     public String getFullName() {

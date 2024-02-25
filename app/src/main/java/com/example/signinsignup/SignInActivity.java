@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +29,7 @@ public class SignInActivity extends AppCompatActivity {
     private TextView goToSignUp,goToForgetPassword;
     private EditText email,password ;
     private Button btnSignIn;
+    private CheckBox rememberMe;
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
     private static final String EMAIL_REGEX="^[a-zA-Z0-9+_.-]+@(.+)$";
@@ -41,6 +45,7 @@ public class SignInActivity extends AppCompatActivity {
         email=findViewById(R.id.emailSignIn);
         password=findViewById(R.id.passwordSignIn);
         btnSignIn=findViewById(R.id.btnSignIn);
+        rememberMe=findViewById(R.id.rememberMe);
 
         firebaseAuth = FirebaseAuth.getInstance();
         progressDialog=new ProgressDialog(this);
@@ -51,6 +56,29 @@ public class SignInActivity extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(SignInActivity.this, MainActivity.class));
                 Toast.makeText(SignInActivity.this, "Going To Sign Up form  ", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        SharedPreferences preferences=getSharedPreferences("checkBox",MODE_PRIVATE);
+
+        boolean resCheckBox=preferences.getBoolean("remember",false);
+        if (resCheckBox){
+            startActivity(new Intent(SignInActivity.this,ProfileActivity.class));
+
+        }else {
+            Toast.makeText(this, "Please sign In !", Toast.LENGTH_SHORT).show();
+        }
+        rememberMe.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (buttonView.isChecked()){
+                SharedPreferences preferences1=getSharedPreferences("checkBox",MODE_PRIVATE);
+                SharedPreferences.Editor editor=preferences1.edit();
+                editor.putBoolean("remember",true);
+                editor.apply();
+            }else if (!buttonView.isChecked()){
+                SharedPreferences preferences1=getSharedPreferences("checkBox",MODE_PRIVATE);
+                SharedPreferences.Editor editor=preferences1.edit();
+                editor.putBoolean("remember",false);
+                editor.apply();
             }
         });
         goToForgetPassword.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +122,7 @@ public class SignInActivity extends AppCompatActivity {
         if (loggedUser != null){
             if (loggedUser.isEmailVerified()){
                 finish();
-                startActivity(new Intent(SignInActivity.this,HomeActivity.class));
+                startActivity(new Intent(SignInActivity.this, ProfileActivity.class));
                 progressDialog.dismiss();
             } else {
                 Toast.makeText(this, "Please verify your email", Toast.LENGTH_SHORT).show();
